@@ -3,8 +3,7 @@ title: "Cyclistic Bike Study"
 author: "Thuan"
 date: "2023-12-18"
 output:
-  pdf_document: default
-  html_document: default
+  rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
