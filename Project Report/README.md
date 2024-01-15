@@ -84,21 +84,11 @@ large amount of data that are being use. I'll be using data from the year 2022.
 ## Installing package
 Below are package that I'll be using to process the data.
 
-```{r Loading Package, install first if havent, eval=FALSE}
+```{r Loading Package, install first if havent}
 library(tidyverse)
 library(janitor)
 library(lubridate)
 ```
-
-<details><summary>Results</summary>
-
-```{r, echo=FALSE, eval=TRUE}
-library(tidyverse)
-library(janitor)
-library(lubridate)
-```
-
-</details>
 
 ## Importing data
 After downloading the data provide, I'll be using read.csv to import the data into R.
