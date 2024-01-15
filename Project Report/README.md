@@ -122,7 +122,7 @@ Dec2022 <- read.csv("202212-divvy-tripdata.csv")
 The step below give me a quick view of the data and the whether the formatting
 for the columns are consistent.
 
-```{r, eval=FALSE}
+```{r}
 # The str() function provide the structure of the data which provide a quick
 # summary of the data and it format
 str(Jan2022)
@@ -139,25 +139,6 @@ str(Mar2022)
 #str(Dec2022)
 ```
 
-<details><summary>Results</summary>
-
-```{r, echo=FALSE, eval=TRUE}
-str(Jan2022)
-str(Feb2022)
-str(Mar2022)
-#str(Apr2022)
-#str(May2022)
-#str(Jun2022)
-#str(Jul2022)
-#str(Aug2022)
-#str(Sep2022)
-#str(Oct2022)
-#str(Nov2022)
-#str(Dec2022)
-```
-
-</details>
-
 # Merging data
 In this step, I'm merging the data to create a new data set and remove any empty
 columns and rows.
@@ -167,20 +148,10 @@ merge_df <- bind_rows(Jan2022, Feb2022, Mar2022, Apr2022, May2022, Jun2022,
                        Jul2022, Aug2022, Sep2022, Oct2022, Nov2022, Dec2022)
 ```
 
-```{r clean and remove any empty columns or rows using clean_name, remove_empty, eval=FALSE}
+```{r clean and remove any empty columns or rows using clean_name, remove_empty}
 merge_df <- clean_names(merge_df)
 remove_empty(merge_df, which = c())
 ```
-
-<details><summary>Results</summary>
-
-```{r, echo=FALSE, eval=TRUE}
-merge_df <- clean_names(merge_df)
-remove_empty(merge_df, which = c())
-```
-
-</details>
-
 
 From earlier using the str() functions that display the summary of the columns,
 we can see that the columns started_at and ended_at are format as char instead
@@ -192,17 +163,9 @@ merge_df$started_at <- as.POSIXct(merge_df$started_at, format = "%Y-%m-%d %H:%M:
 merge_df$ended_at <- as.POSIXct(merge_df$ended_at, format = "%Y-%m-%d %H:%M:%S", tz = "GMT")
 ```
 
-```{r, eval=FALSE}
+```{r}
 str(merge_df)
 ```
-
-<details><summary>Results</summary>
-
-```{r, echo=FALSE, eval=TRUE}
-str(merge_df)
-```
-
-</details>
 
 # Insight
 After a brief view of the data, with our current information, we would only be able to aggregate at ride-level, AKA popular stations, types of bikes used, percentages of casual members to annual members, etc.
@@ -227,18 +190,9 @@ merge_df$trip_duration <- difftime(merge_df$ended_at, merge_df$started_at, units
 merge_df$starting_hour <- format(as.POSIXct(merge_df$started_at), '%H')
 ```
 
-```{r, eval=FALSE}
+```{r}
 str(merge_df)
 ```
-
-<details><summary>Results</summary>
-
-```{r, echo=FALSE, eval=TRUE}
-str(merge_df)
-```
-
-</details>
-
 
 After, adding the new columns, I'll clean the data one more by creating a new 
 dataframe that would remove any trip duration that are below 0.
@@ -280,7 +234,8 @@ ggplot(data = clean_df) + aes(x = day_of_week, fill = member_casual) +
   labs(x = 'Day of week', y = 'Number of rides', fill = 'Member Type',
        title = 'Number of rides by member type')
 ```
-![Plot_1](https://github.com/pahtato/Google-Analytics-Case-Study/assets/149435656/46da9b1e-b37e-45c4-bbf1-bdab81789596)
+
+![Plot_1](https://github.com/pahtato/Google-Analytics-Case-Study/assets/149435656/77707981-9efe-4f21-863c-43fb9ebd985f)
 
 
 ### Plot 2: Number of rides per month
@@ -292,6 +247,9 @@ ggplot(data = clean_df) + aes(x = month, fill = member_casual) +
         title = 'Number of rides per month')
 ```
 
+![Plot_2](https://github.com/pahtato/Google-Analytics-Case-Study/assets/149435656/cb9ebca5-a3fa-4fa5-ad2c-c6557aaf3de9)
+
+
 ### Plot 3: Bikes usage throughout the week
 
 ```{r}
@@ -302,6 +260,9 @@ ggplot(data = clean_df) + aes(x = starting_hour, fill = member_casual) +
         title = 'Bikes use throughout the week by hour') +
    theme(axis.text = element_text(size = 5))
 ```
+
+![Plot_3](https://github.com/pahtato/Google-Analytics-Case-Study/assets/149435656/85599b55-451e-48b1-b08d-45a3fe9f6e57)
+
 
 ### Table 1: Average trip duration of member types by day of weeks
 
@@ -318,9 +279,12 @@ ggplot(data = clean_df) +
   geom_bar(stat = 'summary')
 ```
 
+![Plot_4](https://github.com/pahtato/Google-Analytics-Case-Study/assets/149435656/69c23e1a-1e96-451f-bb70-5bb2a1ab457e)
+
+
 ### Most frequent stations by member type
 
-```{r, eval=FALSE}
+```{r}
 #count will let you count, group & sort the unique values from a dataframe
 
 annual_member_df <- filter(clean_df, member_casual=='member')
@@ -328,37 +292,11 @@ count(annual_member_df, start_station_name, sort = T)
 count(annual_member_df, end_station_name, sort = T)
 ```
 
-<details><summary>Results</summary>
-
-```{r, echo=FALSE, eval=TRUE}
-#count will let you count, group & sort the unique values from a dataframe
-
-annual_member_df <- filter(clean_df, member_casual=='member')
-count(annual_member_df, start_station_name, sort = T)
-count(annual_member_df, end_station_name, sort = T)
-```
-
-
-</details>
-
-
-```{r, eval=FALSE}
+```{r}
 casual_member_df <- filter(clean_df, member_casual=='casual')
 count(casual_member_df, start_station_name, sort = T)
 count(casual_member_df, end_station_name, sort = T)
 ```
-
-<details><summary>Results</summary>
-
-```{r, echo=FALSE, eval=TRUE}
-casual_member_df <- filter(clean_df, member_casual=='casual')
-count(casual_member_df, start_station_name, sort = T)
-count(casual_member_df, end_station_name, sort = T)
-```
-
-
-</details>
-
 
 # Observation from the data
 Below are hypothesis that I have gather after analyzing the plots and graph 
