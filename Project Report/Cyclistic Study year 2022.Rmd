@@ -206,7 +206,8 @@ str(merge_df)
 </details>
 
 # Insight
-After a brief view of the data, with our current information, we would only be able to aggregate at ride-level, AKA popular stations, types of bikes used, percentages of casual members to annual members, etc.
+After a brief view of the data, with our current information, we would only be able to aggregate at ride-level, 
+AKA popular stations, types of bikes used, percentages of casual members to annual members, etc.
 
 Below, I'll be adding new columns that could help me answer the business task,
 such as the day of week that customers rent bike, the month in order to see
