@@ -280,7 +280,7 @@ ggplot(data = clean_df) + aes(x = day_of_week, fill = member_casual) +
   labs(x = 'Day of week', y = 'Number of rides', fill = 'Member Type',
        title = 'Number of rides by member type')
 ```
-![alt text](![Plot_1](https://github.com/pahtato/Google-Analytics-Case-Study/assets/149435656/c8b852f3-0fa0-4ca8-8ed5-78fae45d7353))
+![Plot_1](https://github.com/pahtato/Google-Analytics-Case-Study/assets/149435656/46da9b1e-b37e-45c4-bbf1-bdab81789596)
 
 
 ### Plot 2: Number of rides per month
